@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Movie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        video {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 800px;
+            border-radius: 8px;
+        }
+        .movie-info {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Watch Movie</h1>
+        <div class="movie-info" id="movie-info">
+            <video id="movie-video" controls></video>
+            <p id="movie-description"></p>
+        </div>
+    </div>
+
+    <script>
+        // Get movie ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = urlParams.get('id');
+
+        if (movieId) {
+            fetch(`http://${API_URL}:3000/movies/${movieId}`)
+                .then(response => response.json())
+                .then(movie => {
+                    const videoElement = document.getElementById('movie-video');
+                    const descriptionElement = document.getElementById('movie-description');
+                    
+                    videoElement.src = movie.video_url;
+                    descriptionElement.textContent = `${movie.title} (${movie.release_year}) - ${movie.genre}`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('movie-info').innerHTML = '<p>Error loading movie.</p>';
+                });
+        } else {
+            document.getElementById('movie-info').innerHTML = '<p>Movie ID not provided.</p>';
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,26 @@
+{
+  "name": "movie-app",
+  "version": "1.0.0",
+  "description": "A Node.js application for managing movies",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha --timeout 10000"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "*",
+    "aws-sdk": "*",
+    "cors": "*",
+    "dotenv": "^16.4.7",
+    "express": "*",
+    "multer": "*",
+    "mysql2": "*"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^10.0.0",
+    "supertest": "^6.2.2"
+  },
+  "author": "Sudhanshu",
+  "license": "ISC"
+}
