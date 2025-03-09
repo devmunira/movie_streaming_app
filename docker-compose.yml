@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  node-app:
+    image: "munira787/node-app:latest"
+    container_name: node-app
+    env_file: .env # Load environment variables
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    volumes:
+      - mysql_db:/var/lib/mysql
+    env_file: .env
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "1"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  webapp:
+    image: munira787/movie-streaming-frontend:latest
+    container_name: webapp
+    ports:
+      - "80:80"
+    env_file: .env
+
+volumes:
+  mysql_db:

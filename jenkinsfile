@@ -1,0 +1,20 @@
+pipeline{
+    agent {
+        label "slave-node"
+    }
+    environment {
+        ENV = credentials('env')
+    }
+
+stages{
+    stage("Deploy the Multi Container Application"){
+        steps{
+          sh 'cp $ENV .env'
+          sh 'docker-compose pull' //latest image pull
+          sh 'docker-compose stop webapp node-app'
+          sh 'docker-compose rm -f webapp node-app'
+          sh 'docker-compose up -d'
+        }
+    }
+}
+}

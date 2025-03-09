@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const s3 = new S3Client({ region: "ap-south-1" });
+const s3 = new S3Client({ region: process.env.AWS_REGION });
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
