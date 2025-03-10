@@ -1,6 +1,9 @@
 name: Quality Ensure & Build
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main # main branch name
