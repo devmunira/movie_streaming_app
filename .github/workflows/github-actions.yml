@@ -9,8 +9,8 @@ on:
       - "README.md"
 
 jobs:
-  sonarQubeScan1:
-    name: sonarQubeScan1
+  sonarQubeScan:
+    name: sonarQubeScan
     runs-on: ubuntu-latest
 
     steps:
